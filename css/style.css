@@ -3674,16 +3674,17 @@ width: 33%;
 	margin: 0;
 }
 .skillz p{
-	color: #7c8898;
+	color: #5db454;
 	font-family:SofiaPro-Regular;
 	font-weight: normal;
-	font-size: 20px;
+	font-size: 30px;
 	line-height: 35px;
 	margin-top: 30px;
 }
 .skillz h3{
 	color: #fff;
 	font-family:SofiaPro-SemiBold;
+    text-align: justify;
 	font-weight: normal;
 	font-size: 60px;
 	margin-top: 70px;
@@ -3710,6 +3711,16 @@ width: 44%;
 	margin: 50% 0 0 0;
 	position: relative;
 }
+
+.strategy1{
+    width: 44%;
+    float: right;
+    padding: 0 9.5% 0 0;
+    text-align: right;
+	margin: 15% 0 0 0;
+	position: relative;
+}
+
 .skillzpic{
 	position: relative;
 	top:365px;
