@@ -176,8 +176,15 @@ CREATE        (k)-[:TYPE]->(ss)
 CREATE        (k)-[:TYPE]->(tt)
 CREATE        (k)-[:TYPE]->(uu)
 CREATE        (k)-[:TYPE]->(vv)
+CREATE        (j)-[:TYPE]->(qq)
+CREATE        (j)-[:TYPE]->(kk)
+CREATE        (j)-[:TYPE]->(ll)
+CREATE        (j)-[:TYPE]->(ss)
+CREATE        (j)-[:TYPE]->(tt)
+CREATE        (j)-[:TYPE]->(uu)
+CREATE        (j)-[:TYPE]->(vv)
 
-
+MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r
 //5.4.5. Euclidean Distance
 MERGE        (a:Pais{name:"Ecuador"})
 MERGE        (b:Ciudad{name:"Manta"})

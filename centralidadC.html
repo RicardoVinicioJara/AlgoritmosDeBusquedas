@@ -25,7 +25,7 @@
     <meta name="description" content="Andy Patrick - Scotsman, UX Designer, Art Director - Ontario, Canada">
     <meta name="keywords"
           content="Andy Patrick, andrew patrick, andy patrick graphic, andy patrick design, UX Designer Ontario, UX Designer Canada, Art Director Ontario, UX designer hamilton, art director hamilton">
-    <title>Andy Patrick - Work - Valeyo Insurance</title>
+    <title>Centralidad de cercanía</title>
     <link rel="stylesheet" href="css\reset.css"> <!-- CSS reset -->
     <link rel="stylesheet" href="css\style.css"> <!-- Resource style -->
     <script src="js\modernizr.js"></script> <!-- Modernizr -->
@@ -108,23 +108,58 @@
             </div>
             <div class="brandpic">
                 <div class="brandpicoverval"><img src="img/neo4j.png" width="" height="" alt=""><br>
-                    <a class="btn btn-outline-dark" style="width: 70px; height: 50px;" href="centralidadScrytp.html" target="_blank">SCRYPT</a>
+                    <a class="btn btn-outline-dark" style="width: 70px; height: 50px;"
+                       href="scripts/Cantralidad.cypher.html"
+                       target="_blank">SCRYPT</a>
                 </div>
                 <div class="fluiddark valeyblob">
                 </div>
             </div>
             <div class="fontsncolours group"><h2 class="hideme">BASE DE DATOS</h2>
-                    <img src="img/no4jc1.png" width="100%" height="100%" alt="">
+                <img src="img/no4jc1.png" width="100%" height="100%" alt="">
             </div>
 
-            <div class="mobileshots">
-                <div class="shot1"><img src="images\work-valeyo-phone1.png" width="" height="" alt=""></div>
-                <div class="shot2"><img src="images\work-valeyo-phone2.png" width="" height="" alt=""></div>
-                <div class="shot3"><img src="images\work-valeyo-phone3.png" width="" height="" alt=""></div>
+            <div class="workintrobox">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body bg-dark">
+                                <h2 class="card-title">Nodos mas Centrales</h2>
+                                <p>Un nodo con valor 1, Sera un nodo que esta conectado con todo los demas nodos</p>
+                                <p class="text-primary">CALL gds.alpha.closeness.stream({
+                                    nodeProjection: 'Node',
+                                    relationshipProjection: 'LINK'
+                                    })
+                                    YIELD nodeId, centrality
+                                    RETURN gds.util.asNode(nodeId).id AS user, centrality
+                                    ORDER BY centrality DESC</p>
+                                <div class="card-footer text-muted">
+                                    <img src="img/no4jc2.png" width="100%" height="" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body bg-dark">
+                                <h2 class="card-title">Como Calcular</h2>
+                                <p>El algoritmo hace una matriz de (N) nodos, donde ubica a todos los nodos tanto como
+                                    columnas y como filas, de ahí verifica cuantos nodos necesita para del nodo a al
+                                    nodo b. Para mayor entendimiento se le ejemplifica en la siguiente imagen. </p>
+
+                                <div class="card-footer text-muted">
+                                    <img src="img/no4jc3.png" width="100%" height="" alt="">
+                                </div>
+                                <p>Como podemos ver el nodo C, es el mas central ya que este no necesita mas de tres
+                                    nodos para moverse hacia los demás nodos, por lo que este seria el nodo
+                                    central. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="fullshot"><img src="images\work-valeyo-full.png" width="" height="" alt=""></div>
             <div class="nextlbbanner">
-                <a class="cd-btn" href="londonborn.html" data-type="page-transition">Up next: London Born</a>
+                <a class="cd-btn" href="louvain.html" data-type="page-transition">Siguiente Método >> Louvain</a>
             </div>
         </div>
     </div>
