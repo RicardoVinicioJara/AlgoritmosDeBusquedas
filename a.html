@@ -83,56 +83,74 @@
 
                     </div>
                     <h1 class="fade-in">A*</h1>
+                    <h1 class="fade-in">A Estrella</h1>
                 </div>
             </div>
-            <div class="workpix valpic"><img src="img/centralidad2.gif" width="" height="" alt=""></div>
+            <div class="workpix valpic"><img src="img/a1.jpg" width="" height="" alt=""></div>
             <div class="workintrocont">
-                <div class="workintrobox"><h2>Centralidad de cercanía </h2>
-                    <p>La centralidad de la cercanía está estrechamente relacionada con la noción de distancia entre
-                        nodos. La distancia entre dos nodos se define como la longitud de la ruta más corta entre dos
-                        nodos. <br>
-                        La distancia total es la suma de la distancia de un nodo a todos los demás nodos.<br>
-                        Resalta los nodos que pueden llegar a cualquier otro nodo dentro de unos pocos saltos y nodos
-                        que pueden estar muy distantes en el gráfico
+                <div class="workintrobox"><h2>A Estrella</h2>
+                    <p>iene como objetivo encontrar una ruta al nodo objetivo dado que tiene el menor costo (menos
+                        distancia recorrida, tiempo más corto, etc.). Para ello, mantiene un árbol de rutas de acceso
+                        que se origina en el nodo inicial y extiende esas rutas de un borde a la vez hasta que se cumple
+                        su criterio de terminación.
+
+                        En cada iteración de su bucle principal, A* necesita determinar cuál de sus rutas se extenderá.
+                        Lo hace en función del costo de la ruta y una estimación del costo necesario para extender el
+                        camino hasta el objetivo. Específicamente, A* selecciona la ruta que minimiza<br>
+                        <img src="img/a2.svg">
                     </p></div>
             </div>
             <div class="wires group">
                 <div class="wiresleft"><h2>Ejemplo</h2>
-                    <p>Si un avión tiene que viajar a distintas ciudades de ida y vuelta, y durante este transcurso
-                        definir cuál es el mejor camino, este algoritmo definirá aeropuertos centrales los que le
-                        permitirá ir de una ciudad hasta otro pasando por la central haciendo que los vuelos sean mas
-                        eficientes. </p></div>
-                <div class="wiresright hideme"><img src="img/centralidad3.png" width="" height="" alt=""></div>
+                    <p>A* en acción donde los nodos son ciudades conectadas con carreteras y h(n) es la distancia en
+                        línea recta al punto de destino <br>
+                        El algoritmo está buscando un camino entre Washington, D.C.
+                        y Los Angeles.</p></div>
+                <div class="wiresright hideme"><img src="img/a3.gif" width="" height="" alt=""></div>
             </div>
             <div class="brandpic">
                 <div class="brandpicoverval"><img src="img/neo4j.png" width="" height="" alt=""><br>
                     <a class="btn btn-outline-dark" style="width: 70px; height: 50px;"
-                       href="scripts/Cantralidad.cypher.html"
+                       href="scripts/a.cypher.html"
                        target="_blank">SCRYPT</a>
                 </div>
                 <div class="fluiddark valeyblob">
                 </div>
             </div>
             <div class="fontsncolours group"><h2 class="hideme">BASE DE DATOS</h2>
-                <img src="img/no4jc1.png" width="100%" height="100%" alt="">
+                <img src="img/a4.png" width="100%" height="100%" alt="">
             </div>
 
             <div class="workintrobox">
+                <h2 class="card-title">Ir de Nodo central a destino</h2>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body bg-dark">
-                                <h2 class="card-title">Nodos mas Centrales</h2>
-                                <p>Un nodo con valor 1, Sera un nodo que esta conectado con todo los demas nodos</p>
-                                <p class="text-primary">CALL gds.alpha.closeness.stream({
-                                    nodeProjection: 'Node',
-                                    relationshipProjection: 'LINK'
+                                <h2 class="card-title">Ecuador Iglesia Central</h2>
+                                <p>Como inicio siempre tenemos que salir desde central nodo central {Ecuador}; hasta un
+                                    nodo hijo, en este caso iremos al ilglesia central de Santo Domingo</p>
+                                <p class="text-primary">MATCH(start:Station {name: 'Ecuador'}),
+                                    (
+                                    end:Station {name: 'Iglesia Central'})
+                                    CALL gds.alpha.shortestPath.astar.stream({
+                                    nodeQuery: 'MATCH (p:Station) RETURN id(p) AS id',
+                                    relationshipQuery: 'MATCH (p1:Station)-[r:CONNECTION]->(p2:Station) RETURN id(p1) AS
+                                    source, id(p2) AS target, r.time AS weight',
+                                    startNode: start,
+                                    endNode:
+                                    end,
+                                    relationshipWeightProperty: 'weight',
+                                    propertyKeyLat: 'latitude',
+                                    propertyKeyLat: 'longitude'
                                     })
-                                    YIELD nodeId, centrality
-                                    RETURN gds.util.asNode(nodeId).id AS user, centrality
-                                    ORDER BY centrality DESC</p>
+                                    YIELD nodeId, cost
+                                    RETURN gds.util.asNode(nodeId).name AS Nodo, cost as Distancia</p>
                                 <div class="card-footer text-muted">
-                                    <img src="img/no4jc2.png" width="100%" height="" alt="">
+                                    <img src="img/a5.png" width="100%" height="" alt="">
+                                    <p>Como podemos ver se debe recorrer 156km, e ir primero ir al centro de santo
+                                        domingo para de ahí dirigirse a las iglesia
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -140,24 +158,42 @@
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body bg-dark">
-                                <h2 class="card-title">Como Calcular</h2>
-                                <p>El algoritmo hace una matriz de (N) nodos, donde ubica a todos los nodos tanto como
-                                    columnas y como filas, de ahí verifica cuantos nodos necesita para del nodo a al
-                                    nodo b. Para mayor entendimiento se le ejemplifica en la siguiente imagen. </p>
-
+                                <h2 class="card-title">Ecuador Parque Rumiñahui</h2>
+                                <p>Como inicio siempre tenemos que salir desde central nodo central {Ecuador}; hasta un
+                                    nodo hijo, en este caso iremos al parque Parque Rumiñahui de Otavalo</p>
+                                <p class="text-primary">MATCH(start:Station {name: 'Ecuador'}),
+                                    (
+                                    end:Station {name: 'Parque Rumiñahui'})
+                                    CALL gds.alpha.shortestPath.astar.stream({
+                                    nodeQuery: 'MATCH (p:Station) RETURN id(p) AS id',
+                                    relationshipQuery: 'MATCH (p1:Station)-[r:CONNECTION]->(p2:Station) RETURN id(p1) AS
+                                    source, id(p2) AS target, r.time AS weight',
+                                    startNode: start,
+                                    endNode:
+                                    end,
+                                    relationshipWeightProperty: 'weight',
+                                    propertyKeyLat: 'latitude',
+                                    propertyKeyLat: 'longitude'
+                                    })
+                                    YIELD nodeId, cost
+                                    RETURN gds.util.asNode(nodeId).name AS Nodo, cost as Distancia</p>
                                 <div class="card-footer text-muted">
-                                    <img src="img/no4jc3.png" width="100%" height="" alt="">
+                                    <img src="img/a6.png" width="100%" height="" alt="">
+                                    <p>Como podemos ver se debe recorrer 94km, e ir primero ir al centro de Otavalo para
+                                        de ahí dirigirse a los parques
+                                    </p>
                                 </div>
-                                <p>Como podemos ver el nodo C, es el mas central ya que este no necesita mas de tres
-                                    nodos para moverse hacia los demás nodos, por lo que este seria el nodo
-                                    central. </p>
                             </div>
+
                         </div>
                     </div>
                 </div>
+                <p>Con el método de búsqueda heurístico A* podemos encontrar el camino que tenga el menor
+                                coste posible. Aun que una vez encontrado el nodo meta no realice nuevas búsquedas para
+                                detectar si existe otros caminos y comparar para definir la ruta mas eficiente</p>
             </div>
             <div class="nextlbbanner">
-                <a class="cd-btn" href="louvain.html" data-type="page-transition">Siguiente Método >> Louvain</a>
+                <a class="cd-btn" href="mismaC.html" data-type="page-transition">Siguiente Método >> Misma comunidad</a>
             </div>
         </div>
     </div>
